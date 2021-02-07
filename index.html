@@ -30,8 +30,8 @@
                            <!-- <input type="number" id="currentPhone" class="form-control text-center" value="1"> -->
                            <button id="plusPhone" class="btn btn-light"><i class="fa fa-plus"></i></button>
                         </div>
-                        <h5>$1249</h5>
-                        <button class="btn btn-outline-light"><img src="images/remove.png" alt="" class="remove-item"></button>
+                        <h5>$ <span id="phonePrice">1249</span></h5>
+                        <button class="btn btn-outline-light" class="displayPic"><img src="images/remove.png" alt="" class="remove-item"></button>
                      </div>
                   </div>
                </div>
@@ -49,8 +49,8 @@
                            <!-- <input type="number" id="currentCover" class="form-control text-center" value="1"> -->
                            <button id="plusCover" class="btn btn-light"><i class="fa fa-plus"></i></button>
                         </div>
-                        <h5>$59</h5>
-                        <button class="btn btn-outline-light"><img src="images/remove.png" alt="" class="remove-item"></button>
+                        <h5>$ <span id="coverPrice">59</span></h5>
+                        <button class="btn btn-outline-light" class="displayPic"><img src="images/remove.png" alt=""  class="remove-item"></button>
                      </div>
                   </div>
                </div>
@@ -65,9 +65,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
-                        <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5>$ <span id="subtotal">1,278</span></h5>
+                        <h5>$ <span>0</span></h5>
+                        <h5>$ <span id="finalTotal">1,278</span></h5>
                      </div>
                   </div>
                </div>
@@ -80,25 +80,67 @@
    </section>
 
    <script>
+      // phone minus sign event handler
       var removePhone= document.getElementById('minusPhone');
       removePhone.addEventListener('click',function(){
-       var currentPhoneNumber= document.getElementById('currentPhone').innerText ;
-       var currentPhonePiece= parseFloat(currentPhoneNumber);
-      
-       var remaining= currentPhonePiece - 1;
-       document.getElementById('currentPhone').innerText= remaining;
-
-
+       minusHandler('currentPhone', 'phonePrice', 1249);
+       add();
       })
-
+      
+      // phone plus sign event handler
       var addPhone= document.getElementById('plusPhone');
       addPhone.addEventListener('click',function(){
-       var currentPhoneNumber= document.getElementById('currentPhone').innerText ;
-       var currentPhonePiece= parseFloat(currentPhoneNumber);
-       
-       var total= currentPhonePiece + 1;
-       document.getElementById('currentPhone').innerText = total;
+         plusHandler('currentPhone','phonePrice',1249);
+         add();
       })
+
+      // cover minus sign event handler
+      var removeCover= document.getElementById('minusCover');
+      removeCover.addEventListener('click',function(){
+         minusHandler('currentCover', 'coverPrice', 59);
+         add();
+      })
+
+      // cover plus sign event handler
+      var addCover= document.getElementById('plusCover');
+      addCover.addEventListener('click',function(){
+         plusHandler('currentCover', 'coverPrice', 59);
+         add();
+      })
+
+    
+      // plus handler function
+      function plusHandler(id1, id2, price) {
+      var currentNumber= document.getElementById(id1).innerText ;
+      var currentPiece= parseFloat(currentNumber);
+      var total= currentPiece + 1;
+      document.getElementById(id1).innerText = total;
+
+      document.getElementById(id2).innerText= total * price;
+      }
+
+      // minus handler function
+      function minusHandler(id1, id2, price) {
+      var currentCoverNumber= document.getElementById(id1).innerText ;
+      var currentCoverPiece= parseFloat(currentCoverNumber);
+      var remaining= currentCoverPiece - 1;
+      document.getElementById(id1).innerText= remaining;
+
+      document.getElementById(id2).innerText= remaining * price;
+      }
+
+
+      // final addition function
+      function add() {
+         var coverValue= document.getElementById('coverPrice').innerText;
+         var coverAmount= parseFloat(coverValue);
+         var phoneValue= document.getElementById('phonePrice').innerText;
+         var phoneAmount= parseFloat(phoneValue);
+         var totals= phoneAmount + coverAmount;
+         document.getElementById('subtotal').innerText= totals;
+         document.getElementById('finalTotal').innerText= totals;
+      }
+
    </script>
 </body>
 
