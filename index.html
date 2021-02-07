@@ -83,7 +83,7 @@
       // phone minus sign event handler
       var removePhone= document.getElementById('minusPhone');
       removePhone.addEventListener('click',function(){
-       minusHandler('currentPhone', 'phonePrice', 1249);
+       minusHandler('currentPhone', 'phonePrice', 'minusPhone', 1249);
        add();
       })
       
@@ -97,7 +97,7 @@
       // cover minus sign event handler
       var removeCover= document.getElementById('minusCover');
       removeCover.addEventListener('click',function(){
-         minusHandler('currentCover', 'coverPrice', 59);
+         minusHandler('currentCover', 'coverPrice', 'minusCover', 59);
          add();
       })
 
@@ -112,7 +112,7 @@
       // plus handler function
       function plusHandler(id1, id2, price) {
       var currentNumber= document.getElementById(id1).innerText ;
-      var currentPiece= parseFloat(currentNumber);
+      var currentPiece= parseInt(currentNumber);
       var total= currentPiece + 1;
       document.getElementById(id1).innerText = total;
 
@@ -120,11 +120,14 @@
       }
 
       // minus handler function
-      function minusHandler(id1, id2, price) {
+      function minusHandler(id1, id2, id3, price) {
       var currentCoverNumber= document.getElementById(id1).innerText ;
-      var currentCoverPiece= parseFloat(currentCoverNumber);
+      var currentCoverPiece= parseInt(currentCoverNumber);
       var remaining= currentCoverPiece - 1;
       document.getElementById(id1).innerText= remaining;
+      if(remaining == 0){
+         document.getElementById(id3).style.display= 'none';
+      }
 
       document.getElementById(id2).innerText= remaining * price;
       }
@@ -133,9 +136,9 @@
       // final addition function
       function add() {
          var coverValue= document.getElementById('coverPrice').innerText;
-         var coverAmount= parseFloat(coverValue);
+         var coverAmount= parseInt(coverValue);
          var phoneValue= document.getElementById('phonePrice').innerText;
-         var phoneAmount= parseFloat(phoneValue);
+         var phoneAmount= parseInt(phoneValue);
          var totals= phoneAmount + coverAmount;
          document.getElementById('subtotal').innerText= totals;
          document.getElementById('finalTotal').innerText= totals;
